@@ -35,7 +35,7 @@ public class FestivoServiceImpl implements FestivoService {
     @Autowired
     private ParametroService parametroService;
 
-    private Set<Festivo> festivos;
+    private Set<LocalDate> festivos;
 
     @PostConstruct
     public void init() {
@@ -43,9 +43,10 @@ public class FestivoServiceImpl implements FestivoService {
                 .findByYearsOrderByFestivo(Arrays.asList(LocalDate.now().getYear() -1,
                         LocalDate.now().getYear()))
                 .stream()
+                .map(Festivo::getFestivo)
                 .collect(Collectors.toSet());
 
-        //validarFestivosCreados(festivos);
+        //TODO:Activar luego de crear festivos validarFestivosCreados(festivos);
     }
 
     private void validarFestivosCreados( Set<Festivo> festivos) {

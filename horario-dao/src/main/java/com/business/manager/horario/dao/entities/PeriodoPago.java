@@ -5,10 +5,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -34,6 +43,6 @@ public class PeriodoPago {
             fetch = FetchType.LAZY,
             orphanRemoval = true
     )
-    private Set<SemanaPago> semanasPago = new HashSet();
+    private List<SemanaPago> semanasPago = new ArrayList<>();
 }
 

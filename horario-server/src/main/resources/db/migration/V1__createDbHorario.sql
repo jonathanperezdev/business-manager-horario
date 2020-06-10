@@ -15,7 +15,7 @@ CREATE TABLE SEMANA_PAGO (
 ) ;
 
 CREATE TABLE UBICACION (
-  id serial primary key,
+  id INT primary key,
   nombre varchar(30) DEFAULT null,
   UNIQUE(nombre)
 ) ;
@@ -27,9 +27,11 @@ CREATE TABLE FESTIVO (
 ) ;
 
 CREATE TABLE EMPLEADO (
-  id bigserial primary key,
+  id bigint primary key,
   nombres varchar(30) NOT NULL,
-  apellidos varchar(30) NOT NULL
+  apellidos varchar(30) NOT NULL,
+  id_ubicacion INT not NULL,
+  CONSTRAINT EMPLEADO_idUbicacion_UBICACION_id FOREIGN KEY (id_ubicacion) REFERENCES UBICACION(id)
 ) ;
 
 CREATE TABLE DIA_PAGO (
@@ -47,7 +49,7 @@ CREATE TABLE DIA_PAGO (
 CREATE TABLE RECARGO (
   id bigserial primary key,
   id_dia bigint NOT NULL,
-  horas numeric(5,1) NOT NULL,
+  horas DOUBLE PRECISION NOT NULL,
   concepto varchar(25) NOT NULL,
   orden smallint NOT null,
   UNIQUE(concepto,id_dia),
