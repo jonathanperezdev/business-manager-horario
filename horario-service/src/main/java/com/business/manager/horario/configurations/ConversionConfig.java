@@ -1,6 +1,9 @@
 package com.business.manager.horario.configurations;
 
-import com.business.manager.horario.converters.*;
+import com.business.manager.horario.converters.PeriodoPagoEntityConverter;
+import com.business.manager.horario.converters.PeriodoPagoModelConverter;
+import com.business.manager.horario.converters.UbicacionEntityConverter;
+import com.business.manager.horario.converters.UbicacionModelConverter;
 import com.business.manager.horario.dao.entities.Festivo;
 import com.business.manager.horario.dao.entities.Parametro;
 import com.business.manager.horario.model.FestivoModel;
