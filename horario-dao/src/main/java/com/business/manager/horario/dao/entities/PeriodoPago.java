@@ -7,8 +7,8 @@ import lombok.NonNull;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -34,6 +34,6 @@ public class PeriodoPago {
             fetch = FetchType.LAZY,
             orphanRemoval = true
     )
-    private Set<SemanaPago> semanasPago = new HashSet();
+    private List<SemanaPago> semanasPago = new ArrayList<>();
 }
 

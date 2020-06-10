@@ -2,7 +2,7 @@ package com.business.manager.horario.exceptions.errors;
 
 public enum ErrorEnum {
 	//HorarioUbicacion
-	HORARIO_UBICACION_NOT_FOUND("El horario de la ubicacion que intenta %s no existe"),
+	UBICACION_NOT_FOUND("No existe la ubicacion con codigo %d"),
 
 	//Parametros
 	PARAMETRO_ALREADY_EXIST("El parametro %s ya existe"),

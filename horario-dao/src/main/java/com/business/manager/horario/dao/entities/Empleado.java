@@ -4,11 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -24,5 +20,11 @@ public class Empleado {
     
     @NonNull
     private String apellidos;
+
+    @NonNull
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "id_ubicacion")
+    private Ubicacion ubicacion;
 }
 

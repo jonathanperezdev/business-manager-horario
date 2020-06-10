@@ -1,17 +1,14 @@
 package com.business.manager.horario.dao.entities;
 
 import com.business.manager.horario.enums.ConceptoRecargoEnum;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
 @Entity
+@EqualsAndHashCode(of = {"concepto"})
 @Table(name = "RECARGO")
 public class Recargo {
     @Id
@@ -22,7 +19,7 @@ public class Recargo {
     @JoinColumn(name = "id_dia")
     private DiaPago diaPago;
 
-    private BigDecimal horas;
+    private Double horas;
 
     @Enumerated(EnumType.STRING)
     private ConceptoRecargoEnum concepto;

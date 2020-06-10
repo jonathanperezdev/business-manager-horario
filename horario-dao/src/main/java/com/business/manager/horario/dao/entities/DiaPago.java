@@ -2,6 +2,7 @@ package com.business.manager.horario.dao.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,13 +18,18 @@ public class DiaPago {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_semana")
-    private SemanaPago semanaPago;
+    private Long idSemana;
 
+    @NonNull
     private Integer idUbicacion;
+
+    @NonNull
     private LocalDateTime fechaInicio;
+
+    @NonNull
     private LocalDateTime fechaFin;
+
+    @NonNull
     private Long idEmpleado;
 
     @OneToMany(

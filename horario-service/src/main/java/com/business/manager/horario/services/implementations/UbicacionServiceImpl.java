@@ -39,7 +39,7 @@ public class UbicacionServiceImpl implements UbicacionService {
         Optional<Ubicacion> optUbicacion = ubicacionRepository.findById(idUbicacion);
 
         if(!optUbicacion.isPresent()) {
-            throw new NoDataFoundException(ErrorEnum.HORARIO_UBICACION_NOT_FOUND, "buscar");
+            throw new NoDataFoundException(ErrorEnum.UBICACION_NOT_FOUND, idUbicacion);
         }
 
         UbicacionModel ubicacion = conversionService.convert(optUbicacion.get(), UbicacionModel.class);

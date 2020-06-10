@@ -26,10 +26,9 @@ public class SemanaPago {
     private PeriodoPago periodo;
 
     @OneToMany(
-            mappedBy = "semanaPago",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            orphanRemoval = true
-    )
+            targetEntity= DiaPago.class,
+            cascade = CascadeType.REFRESH,
+            fetch = FetchType.LAZY)
+    @JoinColumn(name = "idSemana", referencedColumnName = "id")
     private Set<DiaPago> diasPago = new HashSet();
 }

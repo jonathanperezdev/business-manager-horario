@@ -1,7 +1,6 @@
 package com.business.manager.horario.converters;
 
 import com.business.manager.horario.dao.entities.HorarioUbicacion;
-import com.business.manager.horario.enums.DiaEnum;
 import com.business.manager.horario.model.HorarioUbicacionModel;
 import com.business.manager.horario.util.DateUtil;
 import org.springframework.core.convert.converter.Converter;
@@ -22,8 +21,8 @@ public class HorarioUbicacionModelConverter implements Converter<HorarioUbicacio
 
         horarioUbicacionModel.setDia(horarioUbicacion.getDia().getDia());
         horarioUbicacionModel.setFechas(DateUtil.getStringOf(horarioUbicacion.getHoraInicio())+" - "+DateUtil.getStringOf(horarioUbicacion.getHoraFin()));
-        //horarioUbicacionModel.setFechaInicioTemporal(horarioUbicacion.getHoraInicio());
-        //horarioUbicacionModel.setFechaFinTemporal(horarioUbicacion.getHoraFin());
+        horarioUbicacionModel.setFechaInicio(horarioUbicacion.getHoraInicio());
+        horarioUbicacionModel.setFechaFin(horarioUbicacion.getHoraFin());
         horarioUbicacionModel.setId(horarioUbicacion.getId());
 
         return horarioUbicacionModel;

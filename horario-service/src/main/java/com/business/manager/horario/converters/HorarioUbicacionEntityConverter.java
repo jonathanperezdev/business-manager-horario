@@ -24,8 +24,8 @@ public class HorarioUbicacionEntityConverter implements Converter<HorarioUbicaci
 
         horarioUbicacion.setId(horarioUbicacionModel.getId());
         horarioUbicacion.setDia(dia);
-        //horarioUbicacion.setHoraInicio((LocalTime)horarioUbicacionModel.getFechaInicioTemporal());
-        //horarioUbicacion.setHoraFin((LocalTime)horarioUbicacionModel.getFechaFinTemporal());
+        horarioUbicacion.setHoraInicio((LocalTime)horarioUbicacionModel.getFechaInicio());
+        horarioUbicacion.setHoraFin((LocalTime)horarioUbicacionModel.getFechaFin());
         horarioUbicacion.setOrden(dia.getOrden());
 
         return horarioUbicacion;
