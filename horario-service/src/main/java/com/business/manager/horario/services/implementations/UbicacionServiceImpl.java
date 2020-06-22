@@ -6,17 +6,21 @@ import com.business.manager.horario.dao.repositories.UbicacionRepository;
 import com.business.manager.horario.enums.DiaEnum;
 import com.business.manager.horario.exceptions.NoDataFoundException;
 import com.business.manager.horario.exceptions.errors.ErrorEnum;
+import com.business.manager.horario.model.HorarioUbicacionModel;
 import com.business.manager.horario.model.UbicacionModel;
 import com.business.manager.horario.services.ParametroService;
 import com.business.manager.horario.services.UbicacionService;
 import com.business.manager.horario.util.DateUtil;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -63,7 +67,8 @@ public class UbicacionServiceImpl implements UbicacionService {
 
     @Override
     public UbicacionModel updateUbicacion(UbicacionModel ubicacionModel) {
-        Set<HorarioUbicacion> horariosByUbicacion = ubicacionRepository.findById(ubicacionModel.getId()).get().getHorariosByUbicacion();
+        Set<HorarioUbicacion> horariosByUbicacion = ubicacionRepository
+                .findById(ubicacionModel.getId()).get().getHorariosByUbicacion();
 
         Ubicacion ubicacion = conversionService.convert(ubicacionModel, Ubicacion.class);
         for (HorarioUbicacion horario:ubicacion.getHorariosByUbicacion()) {
@@ -115,6 +120,27 @@ public class UbicacionServiceImpl implements UbicacionService {
         horario.setOrden(dia.getOrden());
 
         return horario;
+    }
+
+    @Override
+    public List<UbicacionModel> findAllHorarioUbicacion() {
+        List<Ubicacion> ubicaciones = ubicacionRepository.findAll();
+
+        if(CollectionUtils.isEmpty(ubicaciones)){
+            throw new NoDataFoundException(ErrorEnum.UBICACIONES_NOT_FOUND);
+        }
+
+        return ubicaciones.stream()
+                .map(ubicacion -> conversionService.convert(ubicacion, UbicacionModel.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UbicacionModel> findUbicacionesSinHorario() {
+        List<Ubicacion> ubicaciones = ubicacionRepository.findByHorariosByUbicacionIsNull();
+        return ubicaciones.stream()
+                .map(ubicacion -> conversionService.convert(ubicacion, UbicacionModel.class))
+                .collect(Collectors.toList());
     }
 
 }

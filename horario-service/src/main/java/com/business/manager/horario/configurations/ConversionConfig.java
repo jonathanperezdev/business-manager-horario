@@ -1,5 +1,7 @@
 package com.business.manager.horario.configurations;
 
+import com.business.manager.horario.converters.FestivoEntityConverter;
+import com.business.manager.horario.converters.FestivoModelConverter;
 import com.business.manager.horario.converters.PeriodoPagoEntityConverter;
 import com.business.manager.horario.converters.PeriodoPagoModelConverter;
 import com.business.manager.horario.converters.UbicacionEntityConverter;
@@ -38,6 +40,12 @@ public class ConversionConfig {
     @Autowired
     private PeriodoPagoEntityConverter periodoPagoEntityConverter;
 
+    @Autowired
+    private FestivoModelConverter festivoModelConverter;
+
+    @Autowired
+    private FestivoEntityConverter festivoEntityConverter;
+
     private Converter<Parametro, ParametroModel> parametroModelConverter = new Converter<Parametro, ParametroModel>() {
 
         @Override
@@ -51,22 +59,6 @@ public class ConversionConfig {
         @Override
         public Parametro convert(ParametroModel parametroModel) {
             return modelMapper.map(parametroModel, Parametro.class);
-        }
-    };
-
-    private Converter<Festivo, FestivoModel> festivoModelConverter = new Converter<Festivo, FestivoModel>() {
-
-        @Override
-        public FestivoModel convert(Festivo festivo) {
-            return modelMapper.map(festivo, FestivoModel.class);
-        }
-    };
-
-    private Converter<FestivoModel, Festivo> festivoEntityConverter = new Converter<FestivoModel, Festivo>() {
-
-        @Override
-        public Festivo convert(FestivoModel festivoModel) {
-            return modelMapper.map(festivoModel, Festivo.class);
         }
     };
 

@@ -16,40 +16,55 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
-@RequestMapping("/horario/v1/api")
+@RequestMapping("/horario/v1/api/ubicacion")
 @Slf4j
 public class UbicacionController {
 
     @Autowired
     private UbicacionService ubicacionService;
 
-    @GetMapping("/ubicacion/{id}")
+    @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     UbicacionModel getUbicacion(@PathVariable Integer id) {
         return ubicacionService.findByIdUbicacion(id);
     }
 
-    @GetMapping("/ubicacion/horarioDefault/{idUbicacion}")
+    @GetMapping("/horarioDefault/{idUbicacion}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     UbicacionModel ubicacionHorarioDefaultByIdUbicacion(@PathVariable("idUbicacion") Integer idUbicacion) {
         return ubicacionService.getUbicacionHorarioDefault(idUbicacion);
     }
 
-    @PutMapping("/ubicacion")
+    @PutMapping
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     UbicacionModel updateUbicacion(@Valid @RequestBody UbicacionModel ubicacionModel) {
         return ubicacionService.updateUbicacion(ubicacionModel);
     }
 
-    @DeleteMapping("/ubicacion/horario/{idUbicacion}")
+    @DeleteMapping("/horario/{idUbicacion}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     UbicacionModel deleteHorarioUbicacion(@PathVariable("idUbicacion") Integer idUbicacion) {
         return ubicacionService.deleteAllHorarioByUbicacion(idUbicacion);
+    }
+
+    @GetMapping("/ubicacionesSinHorario")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    List<UbicacionModel> findUbicacionesSinHorario() {
+        return ubicacionService.findUbicacionesSinHorario();
+    }
+
+    @GetMapping("/all")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    List<UbicacionModel> horarioUbicacionFindAll() {
+        return ubicacionService.findAllHorarioUbicacion();
     }
 }

@@ -24,6 +24,4 @@ public class TemporalSerializer extends StdSerializer<Temporal> {
             throws IOException {
         gen.writeString(DateUtil.getStringOf(temporal));
     }
-
-
 }

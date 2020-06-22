@@ -3,10 +3,12 @@ package com.business.manager.horario.exceptions.errors;
 public enum ErrorEnum {
 	//HorarioUbicacion
 	UBICACION_NOT_FOUND("No existe la ubicacion con codigo %d"),
+	UBICACIONES_NOT_FOUND("No existen ubicaciones creadas"),
 
 	//Parametros
 	PARAMETRO_ALREADY_EXIST("El parametro %s ya existe"),
 	PARAMETRO_NOT_FOUND("El parametro %s, no existe en la base de datos"),
+	PARAMETROS_NOT_FOUND("No existen parametros creados"),
 
 	//Festivos
 	FESTIVO_ALREADY_EXIST("El festivo con fecha %s ya existe"),
