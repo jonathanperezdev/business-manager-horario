@@ -59,8 +59,6 @@ public class FestivoServiceImpl implements FestivoService {
         if(festivos.size() < minimoFestivosAno){
             throw new OperationNotPossibleException(ErrorEnum.NUMERO_FESTIVOS_BAJO, LocalDate.now().getYear(), minimoFestivosAno);
         }
-
-
     }
 
     @Override
@@ -95,6 +93,11 @@ public class FestivoServiceImpl implements FestivoService {
     @Override
     public boolean isFestivo(LocalDate fecha) {
         return festivos.contains(fecha);
+    }
+
+    @Override
+    public void deleteFestivo(Integer idFestivo){
+        festivoRepository.deleteById(idFestivo);
     }
 
     private List<FestivoModel> toModel(List<Festivo> listFestivos) {

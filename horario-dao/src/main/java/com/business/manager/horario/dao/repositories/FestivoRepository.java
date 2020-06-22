@@ -14,9 +14,14 @@ import java.util.List;
 public interface FestivoRepository extends JpaRepository<Festivo, Integer> {
 	Festivo findByFestivo(LocalDate festivo);
 	
-	@Query("select f from Festivo f where EXTRACT(year from f.festivo) IN :yearsParam Order by f.festivo")
+	@Query("select f " +
+			"from Festivo f " +
+			"where EXTRACT(year from f.festivo) IN :yearsParam " +
+			"Order by f.festivo")
 	List<Festivo> findByYearsOrderByFestivo(@Param("yearsParam") List<Integer> years);
 	
-	@Query("select distinct year(f.festivo) from Festivo f Order by year(f.festivo)")
+	@Query("select distinct extract(year from f.festivo) " +
+			"from Festivo f " +
+			"Order by extract(year from f.festivo)")
 	List<Integer> findAllYearsOrderByYear();
 }

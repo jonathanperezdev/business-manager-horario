@@ -8,7 +8,7 @@ import lombok.NonNull;
 @NoArgsConstructor
 public class FestivoModel {
 
-    private Long id;
+    private Integer id;
 
     @NonNull
     private String festivo;
