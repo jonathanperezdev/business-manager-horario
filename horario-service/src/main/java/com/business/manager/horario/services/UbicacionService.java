@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface UbicacionService {
     UbicacionModel findByIdUbicacion(Integer idUbicacion);
-    UbicacionModel getUbicacionHorarioDefault(Integer idUbicacion);
     UbicacionModel updateUbicacion(UbicacionModel ubicacionModel);
     UbicacionModel deleteAllHorarioByUbicacion(Integer idUbicacion);
     List<UbicacionModel> findAllHorarioUbicacion();
