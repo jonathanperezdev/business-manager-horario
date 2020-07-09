@@ -4,12 +4,14 @@ import com.business.manager.horario.dao.entities.*;
 import com.business.manager.horario.dao.repositories.EmpleadoRepository;
 import com.business.manager.horario.dao.repositories.PeriodoPagoRepository;
 import com.business.manager.horario.enums.DiaEnum;
+import com.business.manager.horario.exceptions.NoDataFoundException;
 import com.business.manager.horario.exceptions.OperationNotPossibleException;
 import com.business.manager.horario.exceptions.errors.ErrorEnum;
 import com.business.manager.horario.model.PeriodoPagoModel;
 import com.business.manager.horario.services.DiaPagoService;
 import com.business.manager.horario.services.ParametroService;
 import com.business.manager.horario.services.PeriodoPagoService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,6 +22,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -112,7 +116,7 @@ public class PeriodoPagoServiceImpl implements PeriodoPagoService {
         List<Empleado> empleados = empleadoRepository.findAll();
         LocalDate fechaDia;
 
-        for(int i = 0 ; i < DAYS.between(periodoPago.getFechaInicio(),periodoPago.getFechaFin()); i++) {
+        for(int i = 0 ; i <= DAYS.between(periodoPago.getFechaInicio(),periodoPago.getFechaFin()); i++) {
             fechaDia = periodoPago.getFechaInicio().plusDays(i);
 
             for (Empleado empleado: empleados) {
@@ -133,5 +137,23 @@ public class PeriodoPagoServiceImpl implements PeriodoPagoService {
 
     boolean isBetweenInclusive(LocalDate inicio, LocalDate fin, LocalDate fecha) {
         return !fecha.isBefore(inicio) && !fecha.isAfter(fin);
+    }
+
+    @Override
+    public List<Integer> findYears(){
+        return periodoPagoRepository.findAllYearsOrderByYear();
+    }
+
+    @Override
+    public List<PeriodoPagoModel> findByYear(Integer year){
+        List<PeriodoPago> listPeriodoPago = periodoPagoRepository.findByYearOrderByFechaInicio(year);
+
+        if(CollectionUtils.isEmpty(listPeriodoPago)) {
+            throw new NoDataFoundException(ErrorEnum.PERIODOS_PAGO_NOT_FOUND_BY_YEAR, year);
+        }
+
+        return listPeriodoPago.stream()
+                .map(periodo -> conversionService.convert(periodo, PeriodoPagoModel.class))
+                .collect(Collectors.toList());
     }
 }
