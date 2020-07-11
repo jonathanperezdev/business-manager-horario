@@ -2,11 +2,14 @@ package com.business.manager.horario.controllers;
 
 import com.business.manager.horario.dao.entities.PeriodoPago;
 import com.business.manager.horario.model.PeriodoPagoModel;
+import com.business.manager.horario.model.SemanaPagoModel;
 import com.business.manager.horario.services.PeriodoPagoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,8 +47,22 @@ public class PeriodoPagoController {
     @GetMapping("/years/{year}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    List<PeriodoPagoModel> PeriodosPagoByYear(@PathVariable("year") Integer year) {
+    List<PeriodoPagoModel> periodosPagoByYear(@PathVariable("year") Integer year) {
         return periodoPagoService.findByYear(year);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    void deletePeriodoPago(@PathVariable("id") Long idPeriodoPago){
+        periodoPagoService.deletePeriodoPago(idPeriodoPago);
+    }
+
+    @GetMapping("/semanas/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    List<SemanaPagoModel> getSemanasPago(@PathVariable("id") Long idPeriodoPago) {
+        return periodoPagoService.getSemanasPago(idPeriodoPago);
     }
 
 }

@@ -1,13 +1,16 @@
 package com.business.manager.horario.services.implementations;
 
 import com.business.manager.horario.dao.entities.*;
+import com.business.manager.horario.dao.repositories.DiaPagoRepository;
 import com.business.manager.horario.dao.repositories.EmpleadoRepository;
 import com.business.manager.horario.dao.repositories.PeriodoPagoRepository;
 import com.business.manager.horario.enums.DiaEnum;
+import com.business.manager.horario.enums.EstadoPago;
 import com.business.manager.horario.exceptions.NoDataFoundException;
 import com.business.manager.horario.exceptions.OperationNotPossibleException;
 import com.business.manager.horario.exceptions.errors.ErrorEnum;
 import com.business.manager.horario.model.PeriodoPagoModel;
+import com.business.manager.horario.model.SemanaPagoModel;
 import com.business.manager.horario.services.DiaPagoService;
 import com.business.manager.horario.services.ParametroService;
 import com.business.manager.horario.services.PeriodoPagoService;
@@ -22,7 +25,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -41,6 +43,9 @@ public class PeriodoPagoServiceImpl implements PeriodoPagoService {
 
     @Autowired
     private DiaPagoService diaPagoService;
+
+    @Autowired
+    private DiaPagoRepository diaPagoServiceRepository;
 
     @Autowired
     @Qualifier("customConversionService")
@@ -156,4 +161,30 @@ public class PeriodoPagoServiceImpl implements PeriodoPagoService {
                 .map(periodo -> conversionService.convert(periodo, PeriodoPagoModel.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void deletePeriodoPago(Long idPeriodoPago){
+        PeriodoPago periodoPago = periodoPagoRepository.findById(idPeriodoPago).get();
+
+        if(EstadoPago.LIQUIDADO == periodoPago.getEstadoPago()) {
+            throw new OperationNotPossibleException(ErrorEnum.PERIODOS_PAGO_LIQUIDADO);
+        }
+
+        for (SemanaPago semana :periodoPago.getSemanasPago()) {
+            semana.getDiasPago().forEach(diaPagoServiceRepository::delete);
+        }
+
+        periodoPagoRepository.delete(periodoPago);
+    }
+
+    @Override
+    public List<SemanaPagoModel> getSemanasPago(Long idPeriodoPago) {
+        PeriodoPago periodoPago = periodoPagoRepository.findById(idPeriodoPago).get();
+        return periodoPago.getSemanasPago()
+                .stream()
+                .map(semana -> conversionService.convert(semana, SemanaPagoModel.class))
+                .collect(Collectors.toList());
+    }
+
+
 }

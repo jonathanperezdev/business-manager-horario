@@ -60,21 +60,6 @@ public class RecargoServiceImpl implements RecargoService {
             recargos = calculator.calcularRecargos(diaPago, recargos);
         }
 
-        return getMergedRecargosByConcepto(recargos);
-    }
-
-    private Set<Recargo> getMergedRecargosByConcepto(Set<Recargo> recargos){
-        BinaryOperator<Recargo> mergeHoras =(recargo, recargo2) -> {
-            recargo.setHoras(Double.sum(recargo.getHoras(), recargo2.getHoras()));
-            return recargo;
-        };
-
-        /*Collector.groupingBy return always Map<key, List>
-          Collectors.reducing applies a BinaryOperator that is summarizing recargo.horas returning Map<key, Optional<Recargo>>
-        * */
-        Map<ConceptoRecargoEnum, Optional<Recargo>> recargosMergedByConcepto = recargos.stream().collect(
-                Collectors.groupingBy(Recargo::getConcepto, Collectors.reducing(mergeHoras)));
-
-        return recargosMergedByConcepto.values().stream().map(Optional::get).collect(Collectors.toSet());
+        return recargos;
     }
 }

@@ -21,6 +21,7 @@ public enum ErrorEnum {
 	PERIODO_PAGO_NO_PERMITIDO("No debe existir mas de %d dias para un periodo de pago"),
 	PERIODO_PAGO_FECHA_INICIO_SUPERIOR("La fecha de inicio %s no puede ser mayor a la fecha final %s"),
 	PERIODOS_PAGO_NOT_FOUND_BY_YEAR("No existen periodos de pago para el año %d "),
+	PERIODOS_PAGO_LIQUIDADO("No puede eliminar un periodo de pago que ya fue liquidado")
 	;
 	
 	private String message;
