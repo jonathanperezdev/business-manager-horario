@@ -9,8 +9,7 @@ import com.business.manager.horario.enums.EstadoPago;
 import com.business.manager.horario.exceptions.NoDataFoundException;
 import com.business.manager.horario.exceptions.OperationNotPossibleException;
 import com.business.manager.horario.exceptions.errors.ErrorEnum;
-import com.business.manager.horario.model.PeriodoPagoModel;
-import com.business.manager.horario.model.SemanaPagoModel;
+import com.business.manager.horario.model.empleado.PeriodoPagoModel;
 import com.business.manager.horario.services.DiaPagoService;
 import com.business.manager.horario.services.ParametroService;
 import com.business.manager.horario.services.PeriodoPagoService;
@@ -45,7 +44,7 @@ public class PeriodoPagoServiceImpl implements PeriodoPagoService {
     private DiaPagoService diaPagoService;
 
     @Autowired
-    private DiaPagoRepository diaPagoServiceRepository;
+    private DiaPagoRepository diaPagoRepository;
 
     @Autowired
     @Qualifier("customConversionService")
@@ -154,7 +153,7 @@ public class PeriodoPagoServiceImpl implements PeriodoPagoService {
         List<PeriodoPago> listPeriodoPago = periodoPagoRepository.findByYearOrderByFechaInicio(year);
 
         if(CollectionUtils.isEmpty(listPeriodoPago)) {
-            throw new NoDataFoundException(ErrorEnum.PERIODOS_PAGO_NOT_FOUND_BY_YEAR, year);
+            throw new NoDataFoundException(ErrorEnum.PERIODO_PAGO_NOT_FOUND_BY_YEAR, year);
         }
 
         return listPeriodoPago.stream()
@@ -167,24 +166,24 @@ public class PeriodoPagoServiceImpl implements PeriodoPagoService {
         PeriodoPago periodoPago = periodoPagoRepository.findById(idPeriodoPago).get();
 
         if(EstadoPago.LIQUIDADO == periodoPago.getEstadoPago()) {
-            throw new OperationNotPossibleException(ErrorEnum.PERIODOS_PAGO_LIQUIDADO);
+            throw new OperationNotPossibleException(ErrorEnum.PERIODO_PAGO_LIQUIDADO);
         }
 
+        List<DiaPago> diasPago;
         for (SemanaPago semana :periodoPago.getSemanasPago()) {
-            semana.getDiasPago().forEach(diaPagoServiceRepository::delete);
+            diasPago = diaPagoRepository.findBySemana(semana.getId());
+            diasPago.forEach(diaPagoRepository::delete);
         }
 
         periodoPagoRepository.delete(periodoPago);
     }
 
     @Override
-    public List<SemanaPagoModel> getSemanasPago(Long idPeriodoPago) {
-        PeriodoPago periodoPago = periodoPagoRepository.findById(idPeriodoPago).get();
-        return periodoPago.getSemanasPago()
-                .stream()
-                .map(semana -> conversionService.convert(semana, SemanaPagoModel.class))
-                .collect(Collectors.toList());
-    }
+    public PeriodoPagoModel getPeridoPago(Long idPeriodoPago) {
+        PeriodoPago periodoPago = periodoPagoRepository.findById(idPeriodoPago)
+                .orElseThrow(() -> new NoDataFoundException(ErrorEnum.PERIODO_PAGO_NOT_FOUND, idPeriodoPago));
 
+        return conversionService.convert(periodoPago, PeriodoPagoModel.class);
+    }
 
 }

@@ -1,7 +1,7 @@
 package com.business.manager.horario.services;
 
-import com.business.manager.horario.model.PeriodoPagoModel;
-import com.business.manager.horario.model.SemanaPagoModel;
+import com.business.manager.horario.model.empleado.HorarioEmpleadoModel;
+import com.business.manager.horario.model.empleado.PeriodoPagoModel;
 
 import java.util.List;
 
@@ -10,5 +10,6 @@ public interface PeriodoPagoService {
     List<Integer> findYears();
     List<PeriodoPagoModel> findByYear(Integer year);
     void deletePeriodoPago(Long idPeriodoPago);
-    List<SemanaPagoModel> getSemanasPago(Long idPeriodoPago);
+    PeriodoPagoModel getPeridoPago(Long idPeriodoPago);
+
 }

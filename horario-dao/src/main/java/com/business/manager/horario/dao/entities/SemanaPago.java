@@ -33,12 +33,4 @@ public class SemanaPago {
     @ManyToOne
     @JoinColumn(name = "id_periodo")
     private PeriodoPago periodo;
-
-    @OneToMany(
-            targetEntity= DiaPago.class,
-            cascade = CascadeType.REFRESH,
-            fetch = FetchType.LAZY
-    )
-    @JoinColumn(name = "idSemana", referencedColumnName = "id")
-    private Set<DiaPago> diasPago = new HashSet();
 }

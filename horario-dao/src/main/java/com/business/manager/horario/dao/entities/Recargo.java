@@ -49,4 +49,9 @@ public class Recargo {
     @Transient
     private Double lineaTiempo;
 
+    @Override
+    public String toString(){
+        return this.horas+" - "+this.concepto;
+    }
+
 }

@@ -6,7 +6,7 @@ import com.business.manager.horario.dao.repositories.UbicacionRepository;
 import com.business.manager.horario.enums.DiaEnum;
 import com.business.manager.horario.exceptions.NoDataFoundException;
 import com.business.manager.horario.exceptions.errors.ErrorEnum;
-import com.business.manager.horario.model.UbicacionModel;
+import com.business.manager.horario.model.ubicacion.UbicacionModel;
 import com.business.manager.horario.services.ParametroService;
 import com.business.manager.horario.services.UbicacionService;
 import com.business.manager.horario.util.DateUtil;
@@ -17,7 +17,6 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;

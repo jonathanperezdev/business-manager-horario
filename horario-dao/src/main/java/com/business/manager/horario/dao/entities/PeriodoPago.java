@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class PeriodoPago {
             fetch = FetchType.LAZY,
             orphanRemoval = true
     )
+    @OrderBy(value = "numero_semana")
     private List<SemanaPago> semanasPago = new ArrayList<>();
 }
 

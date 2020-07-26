@@ -3,6 +3,7 @@ package com.business.manager.horario.util;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.Temporal;
@@ -33,7 +34,7 @@ public class DateUtil {
 	}
 	
 	public static LocalDateTime getLocalDateTimeOf(String fecha) {
-		return LocalDateTime.parse(fecha);
+		return LocalDateTime.parse(fecha, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 	}
 	
 	public static Temporal getTemporalOf(String fecha) {

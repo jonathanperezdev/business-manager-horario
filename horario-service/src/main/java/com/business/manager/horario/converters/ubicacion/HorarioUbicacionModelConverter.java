@@ -1,7 +1,7 @@
-package com.business.manager.horario.converters;
+package com.business.manager.horario.converters.ubicacion;
 
 import com.business.manager.horario.dao.entities.HorarioUbicacion;
-import com.business.manager.horario.model.HorarioUbicacionModel;
+import com.business.manager.horario.model.ubicacion.HorarioUbicacionModel;
 import com.business.manager.horario.util.DateUtil;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

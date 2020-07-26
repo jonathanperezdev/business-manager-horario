@@ -1,4 +1,4 @@
-package com.business.manager.horario.model;
+package com.business.manager.horario.model.ubicacion;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

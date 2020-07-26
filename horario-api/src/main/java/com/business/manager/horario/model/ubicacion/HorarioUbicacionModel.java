@@ -1,4 +1,4 @@
-package com.business.manager.horario.model;
+package com.business.manager.horario.model.ubicacion;
 
 import com.business.manager.horario.serializers.TemporalDeserializer;
 import com.business.manager.horario.serializers.TemporalSerializer;
@@ -30,6 +30,5 @@ public class HorarioUbicacionModel {
 	@JsonSerialize(using = TemporalSerializer.class)
 	private Temporal fechaFin;
 	
-	private String fechas;	
-	private Double horas;
+	private String fechas;
 }

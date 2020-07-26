@@ -1,6 +1,6 @@
 package com.business.manager.horario.services;
 
-import com.business.manager.horario.model.UbicacionModel;
+import com.business.manager.horario.model.ubicacion.UbicacionModel;
 
 import java.util.List;
 

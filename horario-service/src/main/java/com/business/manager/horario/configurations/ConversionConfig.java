@@ -2,13 +2,12 @@ package com.business.manager.horario.configurations;
 
 import com.business.manager.horario.converters.FestivoEntityConverter;
 import com.business.manager.horario.converters.FestivoModelConverter;
-import com.business.manager.horario.converters.PeriodoPagoEntityConverter;
-import com.business.manager.horario.converters.PeriodoPagoModelConverter;
-import com.business.manager.horario.converters.UbicacionEntityConverter;
-import com.business.manager.horario.converters.UbicacionModelConverter;
-import com.business.manager.horario.dao.entities.Festivo;
+import com.business.manager.horario.converters.empleado.HorarioEmpleadoModelConverter;
+import com.business.manager.horario.converters.empleado.PeriodoPagoEntityConverter;
+import com.business.manager.horario.converters.empleado.PeriodoPagoModelConverter;
+import com.business.manager.horario.converters.ubicacion.UbicacionEntityConverter;
+import com.business.manager.horario.converters.ubicacion.UbicacionModelConverter;
 import com.business.manager.horario.dao.entities.Parametro;
-import com.business.manager.horario.model.FestivoModel;
 import com.business.manager.horario.model.ParametroModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +41,9 @@ public class ConversionConfig {
 
     @Autowired
     private FestivoModelConverter festivoModelConverter;
+
+    @Autowired
+    private HorarioEmpleadoModelConverter horarioEmpleadoModelConverter;
 
     @Autowired
     private FestivoEntityConverter festivoEntityConverter;
@@ -79,6 +81,8 @@ public class ConversionConfig {
 
         converters.add(periodoPagoModelConverter);
         converters.add(periodoPagoEntityConverter);
+
+        converters.add(horarioEmpleadoModelConverter);
 
         factory.setConverters(converters);
         factory.afterPropertiesSet();

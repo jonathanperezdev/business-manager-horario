@@ -1,6 +1,6 @@
 package com.business.manager.horario.controllers;
 
-import com.business.manager.horario.model.UbicacionModel;
+import com.business.manager.horario.model.ubicacion.UbicacionModel;
 import com.business.manager.horario.services.UbicacionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

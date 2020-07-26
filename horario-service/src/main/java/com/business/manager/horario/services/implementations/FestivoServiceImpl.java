@@ -53,7 +53,7 @@ public class FestivoServiceImpl implements FestivoService {
         int minimoFestivosAno = Integer.parseInt(parametroService.getValueOfParametro("MINIMO_FESTIVOS_POR_ANO"));
 
         if(CollectionUtils.isEmpty(festivos)) {
-            throw new OperationNotPossibleException(ErrorEnum.FESTIVOS_NO_CREADOS, LocalDate.now().getYear());
+            throw new OperationNotPossibleException(ErrorEnum.FESTIVO_NO_CREADOS, LocalDate.now().getYear());
         }
 
         if(festivos.size() < minimoFestivosAno){
@@ -79,7 +79,7 @@ public class FestivoServiceImpl implements FestivoService {
         List<Festivo> listFestivos = festivoRepository.findByYearsOrderByFestivo(Arrays.asList(year));
 
         if(CollectionUtils.isEmpty(listFestivos)) {
-            throw new NoDataFoundException(ErrorEnum.FESTIVOS_NOT_FOUND_BY_YEAR, year);
+            throw new NoDataFoundException(ErrorEnum.FESTIVO_NOT_FOUND_BY_YEAR, year);
         }
 
         return toModel(listFestivos);

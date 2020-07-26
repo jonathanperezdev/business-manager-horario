@@ -1,9 +1,9 @@
-package com.business.manager.horario.converters;
+package com.business.manager.horario.converters.ubicacion;
 
 import com.business.manager.horario.dao.entities.HorarioUbicacion;
 import com.business.manager.horario.enums.DiaEnum;
-import com.business.manager.horario.model.HorarioSemanaModel;
-import com.business.manager.horario.model.HorarioUbicacionModel;
+import com.business.manager.horario.model.ubicacion.HorarioSemanaModel;
+import com.business.manager.horario.model.ubicacion.HorarioUbicacionModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
