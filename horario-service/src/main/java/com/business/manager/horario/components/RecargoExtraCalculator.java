@@ -31,7 +31,7 @@ public class RecargoExtraCalculator extends AbstractRecargoCalculator {
     @PostConstruct
     private void init() {
         horasLaborablesSemanales = Double.valueOf(parametroService.getValueOfParametro("HORAS_LABORALES_SEMANA"));
-        horasLaborablesDia = Double.valueOf(parametroService.getValueOfParametro("HORAS_LABORALES_DIA"));
+        horasLaborablesDia = Double.valueOf(parametroService.getValueOfParametro("HORAS_LABORALES_DIA")) + HORA_ALMUERZO;
     }
 
     @Override
@@ -57,8 +57,8 @@ public class RecargoExtraCalculator extends AbstractRecargoCalculator {
                 //All hours are extra
                 recargos.stream().forEach(r ->  r.setConcepto(definirNuevoConcepto(r.getConcepto(), ConceptoRecargoEnum.EXTRA)));
             }
-        //True - The worked hours are bigger than the hours in a day - 8
-        }else if(horasTotalesRecargos.compareTo(horasLaborablesDia - HORA_ALMUERZO) > 0) {
+        //True - The worked hours are bigger than the labor hours in a day
+        }else if(horasTotalesRecargos.compareTo(horasLaborablesDia) > 0) {
             recargos = splitRecargo(diaPago, recargos, ConceptoRecargoEnum.EXTRA, horasLaborablesDia);
         }
         return recargos;
