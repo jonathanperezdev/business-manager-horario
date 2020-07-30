@@ -65,12 +65,6 @@ public class RecargoServiceImpl implements RecargoService {
         return sumHoraRecargosByType(recargos);
     }
 
-    private BinaryOperator<Recargo> sumRecargoHoras = (actual, next) -> {
-        actual.setHoras(Double.sum(actual.getHoras(), next.getHoras()));
-        return actual;
-    };
-
-
     private Set<Recargo> sumHoraRecargosByType(Set<Recargo> recargos) {
         Map<ConceptoRecargoEnum, Recargo> recargosByType = recargos.stream().collect(
                 Collectors.toMap(Recargo::getConcepto,
@@ -79,4 +73,9 @@ public class RecargoServiceImpl implements RecargoService {
 
         return recargosByType.values().stream().collect(toSet());
     }
+
+    private BinaryOperator<Recargo> sumRecargoHoras = (actual, next) -> {
+        actual.setHoras(Double.sum(actual.getHoras(), next.getHoras()));
+        return actual;
+    };
 }
