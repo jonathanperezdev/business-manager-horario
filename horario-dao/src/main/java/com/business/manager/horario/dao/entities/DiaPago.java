@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
@@ -37,7 +39,9 @@ public class DiaPago {
     private LocalDateTime fechaFin;
 
     @NonNull
-    private Long idEmpleado;
+    @ManyToOne
+    @JoinColumn(name = "id_empleado")
+    private Empleado empleado;
 
     @OneToMany(
             mappedBy = "diaPago",
@@ -45,5 +49,5 @@ public class DiaPago {
             fetch = FetchType.LAZY,
             orphanRemoval = true
     )
-    private Set<Recargo> recargos = new HashSet();
+    private Set<Recargo> recargos;
 }

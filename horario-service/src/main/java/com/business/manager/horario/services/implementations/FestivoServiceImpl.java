@@ -45,18 +45,17 @@ public class FestivoServiceImpl implements FestivoService {
                 .stream()
                 .map(Festivo::getFestivo)
                 .collect(Collectors.toSet());
-
-        //TODO:Activar luego de crear festivos validarFestivosCreados(festivos);
     }
 
-    private void validarFestivosCreados( Set<Festivo> festivos) {
+    @Override
+    public void validarFestivosCreados() {
         int minimoFestivosAno = Integer.parseInt(parametroService.getValueOfParametro("MINIMO_FESTIVOS_POR_ANO"));
 
-        if(CollectionUtils.isEmpty(festivos)) {
-            throw new OperationNotPossibleException(ErrorEnum.FESTIVOS_NO_CREADOS, LocalDate.now().getYear());
+        if(CollectionUtils.isEmpty(this.festivos)) {
+            throw new OperationNotPossibleException(ErrorEnum.FESTIVO_NO_CREADOS, LocalDate.now().getYear());
         }
 
-        if(festivos.size() < minimoFestivosAno){
+        if(this.festivos.size() < minimoFestivosAno){
             throw new OperationNotPossibleException(ErrorEnum.NUMERO_FESTIVOS_BAJO, LocalDate.now().getYear(), minimoFestivosAno);
         }
     }
@@ -79,7 +78,7 @@ public class FestivoServiceImpl implements FestivoService {
         List<Festivo> listFestivos = festivoRepository.findByYearsOrderByFestivo(Arrays.asList(year));
 
         if(CollectionUtils.isEmpty(listFestivos)) {
-            throw new NoDataFoundException(ErrorEnum.FESTIVOS_NOT_FOUND_BY_YEAR, year);
+            throw new NoDataFoundException(ErrorEnum.FESTIVO_NOT_FOUND_BY_YEAR, year);
         }
 
         return toModel(listFestivos);

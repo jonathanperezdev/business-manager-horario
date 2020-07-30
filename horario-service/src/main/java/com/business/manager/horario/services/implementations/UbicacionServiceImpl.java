@@ -6,8 +6,7 @@ import com.business.manager.horario.dao.repositories.UbicacionRepository;
 import com.business.manager.horario.enums.DiaEnum;
 import com.business.manager.horario.exceptions.NoDataFoundException;
 import com.business.manager.horario.exceptions.errors.ErrorEnum;
-import com.business.manager.horario.model.HorarioUbicacionModel;
-import com.business.manager.horario.model.UbicacionModel;
+import com.business.manager.horario.model.ubicacion.UbicacionModel;
 import com.business.manager.horario.services.ParametroService;
 import com.business.manager.horario.services.UbicacionService;
 import com.business.manager.horario.util.DateUtil;
@@ -18,7 +17,6 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -45,24 +43,19 @@ public class UbicacionServiceImpl implements UbicacionService {
         if(!optUbicacion.isPresent()) {
             throw new NoDataFoundException(ErrorEnum.UBICACION_NOT_FOUND, idUbicacion);
         }
+        Ubicacion ubicacion = optUbicacion.get();
 
-        UbicacionModel ubicacion = conversionService.convert(optUbicacion.get(), UbicacionModel.class);
+        UbicacionModel ubicacionModel;
 
-        return ubicacion;
-    }
+        if(CollectionUtils.isEmpty(optUbicacion.get().getHorariosByUbicacion())){
+            ubicacion.setHorariosByUbicacion(
+                    Arrays.stream(DiaEnum.values())
+                            .map(this::createHorarioUbicacionDefault)
+                            .collect(Collectors.toSet()));
+        }
+        ubicacionModel = conversionService.convert(optUbicacion.get(), UbicacionModel.class);
 
-    @Override
-    public UbicacionModel getUbicacionHorarioDefault(Integer idUbicacion) {
-
-        Ubicacion ubicacion = ubicacionRepository.findById(idUbicacion).get();
-
-        ubicacion.setHorariosByUbicacion(
-                Arrays.stream(DiaEnum.values())
-                        .map(this::createHorarioUbicacionDefault)
-                        .collect(Collectors.toSet())
-        );
-
-        return conversionService.convert(ubicacion, UbicacionModel.class);
+        return ubicacionModel;
     }
 
     @Override

@@ -12,15 +12,18 @@ public enum ErrorEnum {
 
 	//Festivos
 	FESTIVO_ALREADY_EXIST("El festivo con fecha %s ya existe"),
-	FESTIVOS_NOT_FOUND_BY_YEAR("No existen festivos para el año %d "),
-	FESTIVOS_NO_CREADOS("No estan definidos los festivos para el año %d"),
+	FESTIVO_NOT_FOUND_BY_YEAR("No existen festivos para el año %d "),
+	FESTIVO_NO_CREADOS("No estan definidos los festivos para el año %d"),
 	NUMERO_FESTIVOS_BAJO("El numero de festivos para el año %d deberia ser mayor a %d"),
 
 	//Periodo de pago
 	PERIODO_PAGO_EXISTENTE("Ya existe un periodo de pago creado entre las fechas %s - %s"),
 	PERIODO_PAGO_NO_PERMITIDO("No debe existir mas de %d dias para un periodo de pago"),
 	PERIODO_PAGO_FECHA_INICIO_SUPERIOR("La fecha de inicio %s no puede ser mayor a la fecha final %s"),
-
+	PERIODO_PAGO_NOT_FOUND_BY_YEAR("No existen periodos de pago para el año %d "),
+	PERIODO_PAGO_LIQUIDADO("No puede eliminar un periodo de pago que ya fue liquidado"),
+	PERIODO_PAGO_NOT_FOUND("No se encontro el periodo de pago con el id %d"),
+	PERIODO_PAGO_HORARIO_EMPLEADO_NOT_FOUND("No existe horario para la semana %d y ubicacion %d")
 	;
 	
 	private String message;

@@ -26,18 +26,21 @@ public class RecargoExtraCalculator extends AbstractRecargoCalculator {
 
     private Double horasLaborablesSemanales;
     private Double horasLaborablesDia;
+    private static final Double HORA_ALMUERZO = 1.0;
 
     @PostConstruct
     private void init() {
         horasLaborablesSemanales = Double.valueOf(parametroService.getValueOfParametro("HORAS_LABORALES_SEMANA"));
-        horasLaborablesDia = Double.valueOf(parametroService.getValueOfParametro("HORAS_LABORALES_DIA"));
+        horasLaborablesDia = Double.valueOf(parametroService.getValueOfParametro("HORAS_LABORALES_DIA")) + HORA_ALMUERZO;
     }
 
     @Override
     public Set<Recargo> calcularRecargos(DiaPago diaPago, Set<Recargo> recargos) {
         Double horasTotalesRecargos = recargos.stream().mapToDouble(Recargo::getHoras).sum();
         Double horasAcumuladas = ObjectUtils.defaultIfNull(
-                recargoRepository.findHorasAcumuladasSemanaPorEmpleado(diaPago.getFechaInicio(), diaPago.getIdEmpleado()),
+                recargoRepository.findHorasAcumuladasSemanaPorEmpleado(
+                        diaPago.getFechaInicio(),
+                        diaPago.getEmpleado().getId()),
                 0D);
         horasAcumuladas = horasAcumuladas + horasTotalesRecargos;
 
@@ -54,7 +57,7 @@ public class RecargoExtraCalculator extends AbstractRecargoCalculator {
                 //All hours are extra
                 recargos.stream().forEach(r ->  r.setConcepto(definirNuevoConcepto(r.getConcepto(), ConceptoRecargoEnum.EXTRA)));
             }
-        //True - The worked hours are bigger than the hours in a day - 8
+        //True - The worked hours are bigger than the labor hours in a day
         }else if(horasTotalesRecargos.compareTo(horasLaborablesDia) > 0) {
             recargos = splitRecargo(diaPago, recargos, ConceptoRecargoEnum.EXTRA, horasLaborablesDia);
         }

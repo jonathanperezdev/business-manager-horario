@@ -1,7 +1,7 @@
-package com.business.manager.horario.converters;
+package com.business.manager.horario.converters.empleado;
 
 import com.business.manager.horario.dao.entities.PeriodoPago;
-import com.business.manager.horario.model.PeriodoPagoModel;
+import com.business.manager.horario.model.empleado.PeriodoPagoModel;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 

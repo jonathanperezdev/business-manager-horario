@@ -1,7 +1,8 @@
-package com.business.manager.horario.converters;
+package com.business.manager.horario.converters.ubicacion;
 
+import com.business.manager.horario.converters.ubicacion.HorarioSemanaModelConverter;
 import com.business.manager.horario.dao.entities.Ubicacion;
-import com.business.manager.horario.model.UbicacionModel;
+import com.business.manager.horario.model.ubicacion.UbicacionModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;

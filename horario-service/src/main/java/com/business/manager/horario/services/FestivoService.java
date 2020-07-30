@@ -11,4 +11,5 @@ public interface FestivoService {
     List<FestivoModel> findByYear(Integer year);
     List<Integer> findYears();
     boolean isFestivo(LocalDate fecha);
+    void validarFestivosCreados();
 }

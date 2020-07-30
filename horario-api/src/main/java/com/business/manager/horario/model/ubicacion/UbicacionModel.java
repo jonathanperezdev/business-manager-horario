@@ -1,5 +1,6 @@
-package com.business.manager.horario.model;
+package com.business.manager.horario.model.ubicacion;
 
+import com.business.manager.horario.model.ubicacion.HorarioSemanaModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;

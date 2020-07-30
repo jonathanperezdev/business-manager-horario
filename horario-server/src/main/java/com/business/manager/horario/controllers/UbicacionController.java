@@ -1,6 +1,6 @@
 package com.business.manager.horario.controllers;
 
-import com.business.manager.horario.model.UbicacionModel;
+import com.business.manager.horario.model.ubicacion.UbicacionModel;
 import com.business.manager.horario.services.UbicacionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +33,6 @@ public class UbicacionController {
         return ubicacionService.findByIdUbicacion(id);
     }
 
-    @GetMapping("/horarioDefault/{idUbicacion}")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    UbicacionModel ubicacionHorarioDefaultByIdUbicacion(@PathVariable("idUbicacion") Integer idUbicacion) {
-        return ubicacionService.getUbicacionHorarioDefault(idUbicacion);
-    }
-
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -47,7 +40,7 @@ public class UbicacionController {
         return ubicacionService.updateUbicacion(ubicacionModel);
     }
 
-    @DeleteMapping("/horario/{idUbicacion}")
+    @DeleteMapping("/{idUbicacion}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     UbicacionModel deleteHorarioUbicacion(@PathVariable("idUbicacion") Integer idUbicacion) {

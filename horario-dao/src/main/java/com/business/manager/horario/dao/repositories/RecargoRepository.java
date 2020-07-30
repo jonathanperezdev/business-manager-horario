@@ -18,7 +18,7 @@ public interface RecargoRepository extends JpaRepository<Recargo, Long> {
             +" WHERE r.diaPago.id = d.id "
             +"   AND d.idSemana = s.id "
             +"   AND d.fechaInicio < :fechaParam "
-            +"   AND d.idEmpleado = :idEmpleado ")
+            +"   AND d.empleado.id = :idEmpleado ")
     Double findHorasAcumuladasSemanaPorEmpleado(@Param("fechaParam") LocalDateTime fecha,
                                                 @Param("idEmpleado") Long idEmpleado);
 }

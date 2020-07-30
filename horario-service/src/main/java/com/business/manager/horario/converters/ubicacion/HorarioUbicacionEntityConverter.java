@@ -1,8 +1,8 @@
-package com.business.manager.horario.converters;
+package com.business.manager.horario.converters.ubicacion;
 
 import com.business.manager.horario.dao.entities.HorarioUbicacion;
 import com.business.manager.horario.enums.DiaEnum;
-import com.business.manager.horario.model.HorarioUbicacionModel;
+import com.business.manager.horario.model.ubicacion.HorarioUbicacionModel;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +22,7 @@ public class HorarioUbicacionEntityConverter implements Converter<HorarioUbicaci
 
         DiaEnum dia = DiaEnum.diaEnumOf(horarioUbicacionModel.getDia());
 
-        horarioUbicacion.setId(horarioUbicacionModel.getId());
+        horarioUbicacion.setId(horarioUbicacionModel.getId().intValue());
         horarioUbicacion.setDia(dia);
         horarioUbicacion.setHoraInicio((LocalTime)horarioUbicacionModel.getFechaInicio());
         horarioUbicacion.setHoraFin((LocalTime)horarioUbicacionModel.getFechaFin());
