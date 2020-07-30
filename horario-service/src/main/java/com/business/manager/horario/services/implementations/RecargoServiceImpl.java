@@ -18,9 +18,11 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.BinaryOperator;
+import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.reducing;
 import static java.util.stream.Collectors.toSet;
 
 @Service
@@ -60,6 +62,21 @@ public class RecargoServiceImpl implements RecargoService {
             recargos = calculator.calcularRecargos(diaPago, recargos);
         }
 
-        return recargos;
+        return sumHoraRecargosByType(recargos);
+    }
+
+    private BinaryOperator<Recargo> sumRecargoHoras = (actual, next) -> {
+        actual.setHoras(Double.sum(actual.getHoras(), next.getHoras()));
+        return actual;
+    };
+
+
+    private Set<Recargo> sumHoraRecargosByType(Set<Recargo> recargos) {
+        Map<ConceptoRecargoEnum, Recargo> recargosByType = recargos.stream().collect(
+                Collectors.toMap(Recargo::getConcepto,
+                        Function.identity(),
+                        sumRecargoHoras));
+
+        return recargosByType.values().stream().collect(toSet());
     }
 }

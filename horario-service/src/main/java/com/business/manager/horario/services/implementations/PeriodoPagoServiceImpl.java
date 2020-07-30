@@ -11,6 +11,7 @@ import com.business.manager.horario.exceptions.OperationNotPossibleException;
 import com.business.manager.horario.exceptions.errors.ErrorEnum;
 import com.business.manager.horario.model.empleado.PeriodoPagoModel;
 import com.business.manager.horario.services.DiaPagoService;
+import com.business.manager.horario.services.FestivoService;
 import com.business.manager.horario.services.ParametroService;
 import com.business.manager.horario.services.PeriodoPagoService;
 import org.apache.commons.collections4.CollectionUtils;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -47,10 +49,16 @@ public class PeriodoPagoServiceImpl implements PeriodoPagoService {
     private DiaPagoRepository diaPagoRepository;
 
     @Autowired
+    private FestivoService festivoService;
+
+    @Autowired
     @Qualifier("customConversionService")
     private ConversionService conversionService;
 
+    @Transactional
     public PeriodoPagoModel createPeriodoPago(PeriodoPagoModel periodoPagoModel) {
+        festivoService.validarFestivosCreados();
+
         Long maximosDiasPeriodoPago = NumberUtils.createLong(parametroService.getValueOfParametro("MAXIMO_DIAS_PERIODO_PAGO"));
 
         LocalDate fechaInicial = (LocalDate)periodoPagoModel.getFechaInicio();

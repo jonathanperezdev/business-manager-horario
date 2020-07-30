@@ -22,7 +22,7 @@ public class HorarioEmpleadoController {
     @Autowired
     private DiaPagoService diaPagoService;
 
-    @GetMapping("/semana/{idSemana}")
+    @GetMapping("/all/semana/{idSemana}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     List<HorarioEmpleadoModel> getHorarioEmpleadoBySemanaPago(@PathVariable("idSemana") Long idSemana) {

@@ -108,13 +108,12 @@ public class DiaPagoServiceImpl implements DiaPagoService {
 
     @Override
     public HorarioEmpleadoModel updateHorarioEmpleado(HorarioEmpleadoModel horarioEmpleadoModel) {
-        List<DiaPago> horarioSemanaByEmpleado = getDiasPagoByEmpleado(horarioEmpleadoModel);
+        List<DiaPago> horarioSemanaByEmpleado = updateDiasPagoByEmpleado(horarioEmpleadoModel);
 
         return conversionService.convert(horarioSemanaByEmpleado, HorarioEmpleadoModel.class);
-
     }
 
-    private List<DiaPago> getDiasPagoByEmpleado(HorarioEmpleadoModel horarioEmpleadoModel) {
+    private List<DiaPago> updateDiasPagoByEmpleado(HorarioEmpleadoModel horarioEmpleadoModel) {
         List<DiaPago> horariosByEmpleado = new ArrayList<>();
 
         Optional.ofNullable(horarioEmpleadoModel.getLunes()).map(this::modifyDiaPagoEntityOf).map(horariosByEmpleado::add);
