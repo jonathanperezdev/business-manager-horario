@@ -24,10 +24,10 @@ services:
     restart: on-failure:10
     expose:
       - 8001
-      - 5081
+      - 5001
     ports:
       - 8001:8001
-      - 5001:5081
+      - 5001:5001
     depends_on:
       - BMDBHORARIO
 volumes:
