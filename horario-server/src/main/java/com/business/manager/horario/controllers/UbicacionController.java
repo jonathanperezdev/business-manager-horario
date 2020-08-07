@@ -2,7 +2,6 @@ package com.business.manager.horario.controllers;
 
 import com.business.manager.horario.model.ubicacion.UbicacionModel;
 import com.business.manager.horario.services.UbicacionService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,8 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/horario/v1/api/ubicacion")
-@Slf4j
+@RequestMapping("/${api.horario.version}/${api.horario.path}/ubicacion")
 public class UbicacionController {
 
     @Autowired

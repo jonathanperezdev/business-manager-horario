@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/horario/v1/api/empleado")
+@RequestMapping("/${api.horario.version}/${api.horario.path}/empleado")
 public class HorarioEmpleadoController {
 
     @Autowired

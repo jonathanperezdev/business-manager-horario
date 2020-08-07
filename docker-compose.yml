@@ -6,6 +6,7 @@ services:
       - business-manager-data:/var/lib/postgresql/data
     expose:
       - 5433
+    #All services into the BM_NETWORK use the internal port 5432 external services use 5433, in config should be BMDBHORARIO:5432
     ports:
       - 5433:5432
     environment:
@@ -13,6 +14,25 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=postgres
     restart: unless-stopped
+  BMHORARIO:
+    image: business-manager-horario-server:1.0-SNAPSHOT
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://BMDISCOVERY:8761/eureka
+        -Dspring.profiles.active=docker
+        -agentlib:jdwp=transport=dt_socket,address=5081,server=y,suspend=n
+    restart: on-failure:10
+    expose:
+      - 8001
+      - 5001
+    ports:
+      - 8001:8001
+      - 5001:5001
+    depends_on:
+      - BMDBHORARIO
 volumes:
   business-manager-data:
-
+networks:
+  default:
+    external:
+      name: BM_NETWORK

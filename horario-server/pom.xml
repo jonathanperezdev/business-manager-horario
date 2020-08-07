@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<artifactId>horario</artifactId>
@@ -8,12 +9,11 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.business.manager.horario</groupId>
 	<artifactId>horario-server</artifactId>
-	<version>1.0-SNAPSHOT</version>
 	<name>horario-server</name>
-	<description>Server project for horario</description>
+	<version>1.0-SNAPSHOT</version>
+	<description>SpringCloud project for horario server</description>
 
 	<dependencies>
 		<!--Allow handle the DB migration process, execute all scripts in empleado-server/src/main/resources/db.migration-->
@@ -28,7 +28,42 @@
 			<version>1.0-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
+
+		<!--Client to connect with discovery server-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+
+		<!--Client to connect with configuration server-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+
+		<!--Allows create services like /actuator/health-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-commons</artifactId>
+		</dependency>
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>
@@ -37,12 +72,31 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<skip>false</skip>
-					<jvmArguments>
-						-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5001
-					</jvmArguments>
+				</configuration>
+			</plugin>
+
+			<!--Configuration to create and run docker with maven-->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.12</version>
+				<executions>
+					<execution>
+						<id>default</id>
+						<goals>
+							<goal>build</goal>
+							<goal>push</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<repository>business-manager-${project.artifactId}</repository>
+					<tag>${project.version}</tag>
+					<buildArgs>
+						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+					</buildArgs>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

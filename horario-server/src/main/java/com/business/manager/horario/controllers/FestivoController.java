@@ -1,6 +1,5 @@
 package com.business.manager.horario.controllers;
 
-import com.business.manager.horario.dao.entities.Festivo;
 import com.business.manager.horario.model.FestivoModel;
 import com.business.manager.horario.services.FestivoService;
 import org.slf4j.Logger;
@@ -17,12 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/horario/v1/api/festivo/")
+@RequestMapping("/${api.horario.version}/${api.horario.path}/festivo/")
 public class FestivoController {
 
     private static final Logger LOG = LoggerFactory.getLogger(FestivoController.class);
