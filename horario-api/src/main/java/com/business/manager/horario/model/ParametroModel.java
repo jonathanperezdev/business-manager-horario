@@ -14,4 +14,7 @@ public class ParametroModel {
 
     @NonNull
     private String valor;
+
+    @NonNull
+    private String componente;
 }
