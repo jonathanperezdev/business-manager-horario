@@ -60,8 +60,9 @@ CREATE TABLE RECARGO (
   id serial primary key,
   nombre varchar(25) NOT NULL,
   valor varchar(30) NOT NULL,
+  componente VARCHAR(20) NOT NULL,
   UNIQUE (nombre)
-  ) ;
+  );
 
 CREATE TABLE HORARIO_UBICACION (
   id serial primary key,

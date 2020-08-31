@@ -55,6 +55,7 @@ public class PeriodoPagoServiceImpl implements PeriodoPagoService {
     @Qualifier("customConversionService")
     private ConversionService conversionService;
 
+    @Override
     @Transactional
     public PeriodoPagoModel createPeriodoPago(PeriodoPagoModel periodoPagoModel) {
         festivoService.validarFestivosCreados();

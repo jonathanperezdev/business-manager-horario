@@ -1,10 +1,13 @@
 package com.business.manager.horario.dao.entities;
 
+import com.business.manager.horario.enums.ComponentEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,4 +28,8 @@ public class Parametro {
 
     @NonNull
     private String valor;
+
+    @NonNull
+    @Enumerated(EnumType.STRING)
+    private ComponentEnum componente;
 }
