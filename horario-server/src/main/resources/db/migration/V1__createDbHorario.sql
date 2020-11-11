@@ -30,7 +30,7 @@ CREATE TABLE EMPLEADO (
   id bigint primary key,
   nombres varchar(30) NOT NULL,
   apellidos varchar(30) NOT NULL,
-  id_ubicacion INT not NULL,
+  id_ubicacion INT,
   CONSTRAINT EMPLEADO_idUbicacion_UBICACION_id FOREIGN KEY (id_ubicacion) REFERENCES UBICACION(id)
 ) ;
 
@@ -58,7 +58,7 @@ CREATE TABLE RECARGO (
 
  CREATE TABLE PARAMETRO (
   id serial primary key,
-  nombre varchar(25) NOT NULL,
+  nombre varchar(50) NOT NULL,
   valor varchar(30) NOT NULL,
   componente VARCHAR(20) NOT NULL,
   UNIQUE (nombre)

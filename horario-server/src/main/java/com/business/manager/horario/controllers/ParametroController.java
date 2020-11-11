@@ -4,7 +4,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import javax.validation.Valid;
 
-import com.business.manager.horario.dao.entities.Parametro;
+import com.business.manager.horario.enums.ComponentEnum;
 import com.business.manager.horario.model.ParametroModel;
 import com.business.manager.horario.services.ParametroService;
 import org.slf4j.Logger;
@@ -59,6 +59,18 @@ public class ParametroController {
     void deleteParametro(@PathVariable Integer id) {
         LOG.info("Reuqest para eliminar un parametro: {}", id);
         parametroService.deleteParametro(id);
+    }
+
+    @GetMapping("/sendAllByMessage")
+    @ResponseStatus(HttpStatus.OK)
+    void senAllParametros() {
+        parametroService.sendAllParametros();
+    }
+
+    @GetMapping("/componentes")
+    @ResponseStatus(HttpStatus.OK)
+    ComponentEnum[] getAllComponentes() {
+        return parametroService.getAllComponentes();
     }
 }
 

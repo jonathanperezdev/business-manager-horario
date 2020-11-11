@@ -7,13 +7,10 @@ import lombok.NonNull;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 
 @Data
 @NoArgsConstructor
@@ -21,7 +18,7 @@ import javax.persistence.Table;
 @Table(name = "EMPLEADO")
 public class Empleado {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NonNull
     private Long id;
 
     @NonNull
@@ -30,7 +27,6 @@ public class Empleado {
     @NonNull
     private String apellidos;
 
-    @NonNull
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.REFRESH)
     @JoinColumn(name = "id_ubicacion")

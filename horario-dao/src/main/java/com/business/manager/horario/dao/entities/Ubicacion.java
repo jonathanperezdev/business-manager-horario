@@ -21,7 +21,7 @@ import java.util.Set;
 @Table(name = "UBICACION")
 public class Ubicacion {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NonNull
     private Integer id;
 
     @NonNull
