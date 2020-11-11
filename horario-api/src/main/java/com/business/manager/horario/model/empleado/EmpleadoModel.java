@@ -15,4 +15,6 @@ public class EmpleadoModel {
 
     @NonNull
     private String apellidos;
+
+    private Integer idUbicacion;
 }

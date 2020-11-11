@@ -4,12 +4,14 @@ import com.business.manager.horario.converters.ubicacion.HorarioSemanaEntityConv
 import com.business.manager.horario.dao.entities.HorarioUbicacion;
 import com.business.manager.horario.dao.entities.Ubicacion;
 import com.business.manager.horario.model.ubicacion.UbicacionModel;
+import org.apache.commons.collections4.CollectionUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 @Component
@@ -25,12 +27,14 @@ public class UbicacionEntityConverter implements Converter<UbicacionModel, Ubica
     public Ubicacion convert(UbicacionModel ubicacionModel) {
         Ubicacion ubicacion = modelMapper.map(ubicacionModel, Ubicacion.class);
 
-        Set<HorarioUbicacion> HorarioByUbicacion = semanaEntityConverter.convert(ubicacionModel.getHorarioSemana());
-        HorarioByUbicacion.stream()
-                .filter(Objects::nonNull)
-                .forEach(horario -> horario.setUbicacion(ubicacion));
+        if(Objects.nonNull(ubicacionModel.getHorarioSemana())) {
+            Set<HorarioUbicacion> HorarioByUbicacion = semanaEntityConverter.convert(ubicacionModel.getHorarioSemana());
+            HorarioByUbicacion.stream()
+                    .filter(Objects::nonNull)
+                    .forEach(horario -> horario.setUbicacion(ubicacion));
 
-        ubicacion.setHorariosByUbicacion(HorarioByUbicacion);
+            ubicacion.setHorariosByUbicacion(HorarioByUbicacion);
+        }
 
         return ubicacion;
     }

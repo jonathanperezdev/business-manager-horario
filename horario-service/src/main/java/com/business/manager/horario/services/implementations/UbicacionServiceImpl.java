@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -60,8 +62,10 @@ public class UbicacionServiceImpl implements UbicacionService {
 
     @Override
     public UbicacionModel updateUbicacion(UbicacionModel ubicacionModel) {
-        Set<HorarioUbicacion> horariosByUbicacion = ubicacionRepository
-                .findById(ubicacionModel.getId()).get().getHorariosByUbicacion();
+        Optional<Ubicacion> optUbicacion = ubicacionRepository.findById(ubicacionModel.getId());
+
+        Set<HorarioUbicacion> horariosByUbicacion =
+                optUbicacion.isPresent() ? optUbicacion.get().getHorariosByUbicacion() : Collections.EMPTY_SET;
 
         Ubicacion ubicacion = conversionService.convert(ubicacionModel, Ubicacion.class);
         for (HorarioUbicacion horario:ubicacion.getHorariosByUbicacion()) {
@@ -76,10 +80,14 @@ public class UbicacionServiceImpl implements UbicacionService {
     }
 
     @Override
+    public void deleteUbicacion(Integer idUbicacion) {
+        ubicacionRepository.findById(idUbicacion).ifPresent(ubicacionRepository::delete);
+    }
+
+    @Override
     public UbicacionModel deleteAllHorarioByUbicacion(Integer idUbicacion) {
         Ubicacion ubicacion = ubicacionRepository.findById(idUbicacion).get();
         ubicacion.getHorariosByUbicacion().clear();
-
         ubicacionRepository.save(ubicacion);
 
         return conversionService.convert(ubicacion, UbicacionModel.class);

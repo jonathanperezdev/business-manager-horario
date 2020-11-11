@@ -1,5 +1,6 @@
-package com.business.manager.horario.components;
+package com.business.manager.horario.components.implementations;
 
+import com.business.manager.horario.components.RecargoCalculator;
 import com.business.manager.horario.dao.entities.DiaPago;
 import com.business.manager.horario.dao.entities.Recargo;
 import com.business.manager.horario.enums.ConceptoRecargoEnum;

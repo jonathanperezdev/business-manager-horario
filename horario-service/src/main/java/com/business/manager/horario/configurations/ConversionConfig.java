@@ -2,6 +2,8 @@ package com.business.manager.horario.configurations;
 
 import com.business.manager.horario.converters.FestivoEntityConverter;
 import com.business.manager.horario.converters.FestivoModelConverter;
+import com.business.manager.horario.converters.empleado.EmpleadoEntityConverter;
+import com.business.manager.horario.converters.empleado.EmpleadoModelConverter;
 import com.business.manager.horario.converters.empleado.HorarioEmpleadoModelConverter;
 import com.business.manager.horario.converters.empleado.PeriodoPagoEntityConverter;
 import com.business.manager.horario.converters.empleado.PeriodoPagoModelConverter;
@@ -48,6 +50,12 @@ public class ConversionConfig {
     @Autowired
     private FestivoEntityConverter festivoEntityConverter;
 
+    @Autowired
+    private EmpleadoModelConverter empleadoModelConverter;
+
+    @Autowired
+    private EmpleadoEntityConverter empleadoEntityConverter;
+
     private Converter<Parametro, ParametroModel> parametroModelConverter = new Converter<Parametro, ParametroModel>() {
 
         @Override
@@ -83,6 +91,9 @@ public class ConversionConfig {
         converters.add(periodoPagoEntityConverter);
 
         converters.add(horarioEmpleadoModelConverter);
+
+        converters.add(empleadoModelConverter);
+        converters.add(empleadoEntityConverter);
 
         factory.setConverters(converters);
         factory.afterPropertiesSet();

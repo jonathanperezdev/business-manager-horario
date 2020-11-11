@@ -1,5 +1,6 @@
-package com.business.manager.horario.components;
+package com.business.manager.horario.components.implementations;
 
+import com.business.manager.horario.components.implementations.AbstractRecargoCalculator;
 import com.business.manager.horario.dao.entities.DiaPago;
 import com.business.manager.horario.dao.entities.Recargo;
 import com.business.manager.horario.enums.ConceptoRecargoEnum;
@@ -12,7 +13,7 @@ import java.util.Set;
 
 @Component
 @Qualifier("recargoFestivoCalculator")
-public class RecargoFestivoCalculator extends AbstractRecargoCalculator{
+public class RecargoFestivoCalculator extends AbstractRecargoCalculator {
 
     @Autowired
     private FestivoService festivoService;

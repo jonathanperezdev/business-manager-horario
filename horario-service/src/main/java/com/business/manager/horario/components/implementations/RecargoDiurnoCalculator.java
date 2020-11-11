@@ -1,5 +1,6 @@
-package com.business.manager.horario.components;
+package com.business.manager.horario.components.implementations;
 
+import com.business.manager.horario.components.implementations.AbstractRecargoCalculator;
 import com.business.manager.horario.dao.entities.DiaPago;
 import com.business.manager.horario.dao.entities.Recargo;
 import com.business.manager.horario.dao.repositories.DiaPagoRepository;
@@ -8,14 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Component
 @Qualifier("recargoDiurnoCalculator")
-public class RecargoDiurnoCalculator extends AbstractRecargoCalculator{
+public class RecargoDiurnoCalculator extends AbstractRecargoCalculator {
 
     @Autowired
     private DiaPagoRepository diaPagoRepository;
